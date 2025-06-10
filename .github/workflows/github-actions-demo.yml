@@ -1,6 +1,15 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - index.html
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -20,19 +29,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          publish_branch: gh-pages
-          # Publica todos los archivos del repo raíz (solo index.html en este caso)
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v4
 
-      - name: Output GitHub Pages URL
-        run: |
-          echo "Website deployed to:"
-          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"    
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+      - name: Output deployment URL
+        run: echo "🔗 Website deployed to: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
+
+        
           
