@@ -43,4 +43,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
       - name: Output deployment URL
-        run: 'echo "🔗 Website deployed to: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"'
+        run: |
+         echo "🔗 Website deployed to: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"
