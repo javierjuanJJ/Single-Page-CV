@@ -30,3 +30,9 @@ jobs:
           publish_dir: ./
           publish_branch: gh-pages
           # Publica todos los archivos del repo raíz (solo index.html en este caso)
+
+      - name: Output GitHub Pages URL
+        run: |
+          echo "Website deployed to:"
+          echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"    
+          
